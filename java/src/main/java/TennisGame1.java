@@ -25,44 +25,30 @@ public class TennisGame1 implements TennisGame {
         }
     }
 
+    public String getWinOrAdvantageScore(int minusResult) {
+        if (minusResult == 1) return "Advantage player1";
+        if (minusResult ==-1) return "Advantage player2";
+        if (minusResult >= 2) return "Win for player1";
+        else return "Win for player2";
+    }
+
+    public String getPlayerScore(int score){
+        switch (score) {
+            case 0:  return "Love";
+            case 1:  return "Fifteen";
+            case 2:  return "Thirty";
+            default: return "Forty";
+        }
+    }
+
     public String getScore() {
-        String score = "";
-        int tempScore;
+
         if (scorePlayer1 == scorePlayer2)
-        {
             return getTieScore(scorePlayer1);
-        }
-        else if (scorePlayer1 >=4 || scorePlayer2 >=4)
-        {
-            int minusResult = scorePlayer1 - scorePlayer2;
-            if (minusResult==1) score ="Advantage player1";
-            else if (minusResult ==-1) score ="Advantage player2";
-            else if (minusResult>=2) score = "Win for player1";
-            else score ="Win for player2";
-        }
-        else
-        {
-            for (int i=1; i<3; i++)
-            {
-                if (i==1) tempScore = scorePlayer1;
-                else { score+="-"; tempScore = scorePlayer2;}
-                switch(tempScore)
-                {
-                    case 0:
-                        score+="Love";
-                        break;
-                    case 1:
-                        score+="Fifteen";
-                        break;
-                    case 2:
-                        score+="Thirty";
-                        break;
-                    case 3:
-                        score+="Forty";
-                        break;
-                }
-            }
-        }
-        return score;
+
+        if (scorePlayer1 >=4 || scorePlayer2 >=4)
+            return getWinOrAdvantageScore(scorePlayer1 - scorePlayer2);
+
+        return getPlayerScore(scorePlayer1) + "-" + getPlayerScore(scorePlayer2);
     }
 }
